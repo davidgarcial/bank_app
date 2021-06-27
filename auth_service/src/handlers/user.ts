@@ -5,7 +5,7 @@ import * as db from "../db/index.ts";
 export const findUser = async (ctx: Context) => {
   const { userId } = helpers.getQuery(ctx, { mergeParams: true });
   try {
-    let user: User = await db.findUserById(userId);
+    const user: User = await db.findUserById(userId);
     ctx.response.body = user;
   } catch (err) {
     ctx.response.status = 404;
@@ -16,7 +16,7 @@ export const findUser = async (ctx: Context) => {
 export const createUser = async (ctx: Context) => {
   try {
     const { name, birthDate } = await ctx.request.body().value;
-    let createdUser: User = await db.createUser(name, birthDate);
+    const createdUser: User = await db.createUser(name, birthDate);
     ctx.response.body = createdUser;
   } catch (err) {
     ctx.response.status = 500;

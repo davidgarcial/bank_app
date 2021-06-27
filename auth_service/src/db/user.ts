@@ -10,7 +10,7 @@ export const findUserById = async (uuid: Uuid): Promise<User> =>
     setTimeout(() => {
       resolve({
         uuid,
-        name: "Paul",
+        name: "David",
         birthDate: new Date(),
       });
     }, 50);

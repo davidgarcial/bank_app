@@ -3,8 +3,7 @@ import { userCollection } from '../db/dbconnect.ts'
 
 export const getAllUser = async (ctx: Context) => {
   try {
-    const users = await userCollection.find({ name: { $ne: null } }).toArray();
-    console.log(users)
+    const users = await userCollection.find({}, { noCursorTimeout: false } as any).toArray();
     ctx.response.body = users;
     ctx.response.status = 200;
   } catch (err) {

@@ -1,9 +1,9 @@
-import { MongoClient } from "https://deno.land/x/mongo@v0.23.1/mod.ts";
+import { MongoClient } from "https://deno.land/x/mongo@v0.22.0/mod.ts";
 import { config } from "https://deno.land/x/dotenv/mod.ts";
 
 // Mongo Connection Init
 const client = new MongoClient();
-const { URI } = config({ safe: true });
+const { DB_NAME, HOST, USER, PASS } = config({ safe: true });
 
 interface UserSchema {
   _id: { $oid: string };
@@ -11,9 +11,23 @@ interface UserSchema {
 }
 
 try {
-  console.log(URI);
-  await client.connect(URI);
-  
+  // await client.connect(CLOUD_URI);
+  await client.connect({
+    db: DB_NAME,
+    tls: true,
+    servers: [
+      {
+        host: HOST,
+        port: 27017
+      }
+    ],
+    credential: {
+      username: USER,
+      password: PASS,
+      db: DB_NAME,
+      mechanism: "SCRAM-SHA-1",
+    },
+  });
   console.log("Database successfully connected");
 } catch (err) {
   console.log(err);

@@ -1,9 +1,10 @@
 import { Context, helpers } from 'https://deno.land/x/oak/mod.ts';
+import { FindOptions } from "https://deno.land/x/mongo@v0.22.0/mod.ts";
 import { userCollection } from '../db/dbconnect.ts'
 
 export const getAllUser = async (ctx: Context) => {
   try {
-    const users = await userCollection.find({}, { noCursorTimeout: false } as any).toArray();
+    const users = await userCollection.find({}, { noCursorTimeout: false } as FindOptions).toArray();
     ctx.response.body = users;
     ctx.response.status = 200;
   } catch (err) {

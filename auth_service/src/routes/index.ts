@@ -4,4 +4,4 @@ import {
 } from "../handlers/user.ts";
 
 export const router = new Router()
-  .get('/api/users', login);
+  .post('/api/login', login);

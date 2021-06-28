@@ -1,14 +1,10 @@
-import { MongoClient } from "https://deno.land/x/mongo@v0.22.0/mod.ts";
+import { Bson, MongoClient } from "https://deno.land/x/mongo@v0.22.0/mod.ts";
 import { config } from "https://deno.land/x/dotenv/mod.ts";
+import { UserSchema } from '../models/user.ts';
 
 // Mongo Connection Init
 const client = new MongoClient();
 const { DB_NAME, HOST, USER, PASS } = config({ safe: true });
-
-interface UserSchema {
-  _id: { $oid: string };
-  name: string;
-}
 
 try {
   // await client.connect(CLOUD_URI);
@@ -36,4 +32,4 @@ try {
 const db = client.database("bank_app"); 
 const userCollection = db.collection<UserSchema>("Users");
 
-export { db, userCollection };
+export { db, userCollection, Bson };

@@ -4,7 +4,7 @@ import { Application } from "https://deno.land/x/oak/mod.ts";
 import { router } from "./routes/index.ts";
 import { logger } from "./middleware/logger.ts";
 
-const { PORT } = config();
+const { PORT } = config({ safe: true });
 const app = new Application();
 
 app.use(logger);

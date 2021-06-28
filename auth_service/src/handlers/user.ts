@@ -1,7 +1,19 @@
-import { Context, helpers } from "https://deno.land/x/oak/mod.ts";
-import type { User } from "../types/user.ts";
-import * as db from "../db/index.ts";
+import { Context, helpers } from 'https://deno.land/x/oak/mod.ts';
+import { userCollection } from '../db/dbconnect.ts'
 
+export const getAllUser = async (ctx: Context) => {
+  try {
+    const users = await userCollection.find({ name: { $ne: null } }).toArray();
+    console.log(users)
+    ctx.response.body = users;
+    ctx.response.status = 200;
+  } catch (err) {
+    ctx.response.status = 404;
+    ctx.response.body = { msg: err.message };
+  }
+};
+
+/*
 export const findUser = async (ctx: Context) => {
   const { userId } = helpers.getQuery(ctx, { mergeParams: true });
   try {
@@ -31,3 +43,4 @@ export const updateUser = async (ctx: Context) => {
 export const deleteUser = async (ctx: Context) => {
   ctx.response.body = { msg: "User deleted!" };
 };
+*/

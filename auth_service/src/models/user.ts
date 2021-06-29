@@ -1,5 +1,5 @@
 export interface UserSchema {
-  _id: { $oid: string };
+  _id: string ;
   user: string;
   password: string;
 }
